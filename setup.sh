@@ -10,8 +10,9 @@ popd
 
 # Obtain the hash of baselines/roboschool in rlenv, and add them as a submodule
 function get_hash() {
-  cd rlenv/$1
+  pushd rlenv/$1
   git rev-parse HEAD
+  popd
 }
 
 hash_baselines=$(get_hash baselines)
@@ -19,7 +20,7 @@ hash_roboschool=$(get_hash roboschool)
 
 function add_and_checkout() {
   git submodule add https://github.com/$1
-  cd $(basename $1)
+  pushd $(basename $1)
   git checkout $2
 }
 
