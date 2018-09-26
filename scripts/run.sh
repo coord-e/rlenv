@@ -13,4 +13,4 @@ export OPENAI_LOG_FORMAT='stdout,log,csv,tensorboard'
 export OPENAI_LOGDIR="$log_dir"
 
 tensorboard --logdir "$log_dir" &
-python -m baselines.run --save_path "$model_dir" $@
+python -m baselines.run --save_path "$model_path" $@
