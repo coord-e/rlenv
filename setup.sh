@@ -62,6 +62,8 @@ else
 fi
 
 # Roboschool installation needs to be done in virtualenv
-pipenv run pipenv install
+pipenv install
+pipenv install -e ./baselines
+pipenv run pipenv install -e ./roboschool
 
 echo results/ >> .gitignore
