@@ -19,4 +19,5 @@ joblib = "*"
 [scripts]
 fix = "autopep8 -ivr ."
 lint = "flake8 ."
-train = "./scripts/run.sh"
+train = "./rlenv/scripts/run.sh"
+play = "./rlenv/scripts/play.sh"
