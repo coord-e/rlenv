@@ -4,6 +4,9 @@ git init
 git flow init
 
 git submodule add https://github.com/coord-e/rlenv
+pushd rlenv
+git submodule update --init --recursive
+popd
 
 # Obtain the hash of baselines/roboschool in rlenv, and add them as a submodule
 function get_hash() {
