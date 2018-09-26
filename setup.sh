@@ -57,10 +57,8 @@ popd
 if type "nvidia-smi" > /dev/null 2>&1
 then
   sed -i 's/tensorflow/tensorflow-gpu/' Pipfile
-  mv Pipfile.lock.gpu Pipfile.lock
 else
   echo "Using tensorflow without GPU support"
-  rm Pipfile.lock.gpu
 fi
 
 # Roboschool installation needs to be done in virtualenv
