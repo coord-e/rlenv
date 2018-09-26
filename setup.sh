@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+set -eu
+
+function pushd () {
+  command pushd "$@" > /dev/null
+}
+
+function popd () {
+  command popd "$@" > /dev/null
+}
+
 git init
 git flow init
 
