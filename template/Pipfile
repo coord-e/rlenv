@@ -12,6 +12,7 @@ opencv-python = "*"
 joblib = "*"
 "mpi4py" = "*"
 matplotlib = "*"
+natsort = "*"
 
 [dev-packages]
 "flake8" = "*"
@@ -22,3 +23,4 @@ fix = "autopep8 -ivr ."
 lint = "flake8 ."
 train = "./rlenv/scripts/run.sh"
 play = "./rlenv/scripts/play.sh"
+plot = "python ./rlenv/scripts/plot.py"
