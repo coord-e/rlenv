@@ -11,6 +11,7 @@ scipy = "*"
 opencv-python = "*"
 joblib = "*"
 "mpi4py" = "*"
+matplotlib = "*"
 
 [dev-packages]
 "flake8" = "*"
