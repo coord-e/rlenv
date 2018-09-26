@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pybullet = ">=2.1.7,!=2.1.8"
+gym = "*"
+"44eff87" = {path = "./roboschool", editable = true}
+"9eeb991" = {path = "./baselines", editable = true}
+scipy = "*"
+opencv-python = "*"
+joblib = "*"
+"mpi4py" = "*"
+
+[dev-packages]
+"flake8" = "*"
+"autopep8" = "*"
+
+[scripts]
+fix = "autopep8 -ivr ."
+lint = "flake8 ."
