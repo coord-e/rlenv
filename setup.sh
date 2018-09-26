@@ -15,17 +15,23 @@ function get_hash() {
   popd
 }
 
-hash_baselines=$(get_hash baselines)
-hash_roboschool=$(get_hash roboschool)
-
 function add_and_checkout() {
   git submodule add https://github.com/$1
   pushd $(basename $1)
   git checkout $2
+  popd
 }
 
-add_and_checkout openai/baselines $hash_baselines
-add_and_checkout openai/roboschool $hash_roboschool
+function reclone_submodule() {
+  repo=$1
+  dir=$(basename $repo)
+  hash_rlenv=$(get_hash $dir)
+  add_and_checkout $repo $hash_rlenv
+}
+
+reclone_submodule openai/baselines
+reclone_submodule openai/roboschool
+reclone_submodule olegklimov/bullet3
 
 cp rlenv/template/* .
 
