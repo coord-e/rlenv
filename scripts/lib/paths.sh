@@ -1,5 +1,5 @@
 function set_paths() {
-  output_dir="./results/$name"
+  output_dir="../results/$1"
   model_path="$output_dir/models"
   log_dir="$output_dir/logs"
 
