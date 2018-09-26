@@ -7,12 +7,13 @@ name = "pypi"
 tensorflow = "*"
 pybullet = ">=2.1.7,!=2.1.8"
 gym = "*"
-"44eff87" = {path = "./roboschool", editable = true}
-"9eeb991" = {path = "./baselines", editable = true}
 scipy = "*"
 opencv-python = "*"
 joblib = "*"
 "mpi4py" = "*"
+roboschool = {editable = true, path = "./roboschool"}
+baselines = {editable = true, path = "./baselines", setup_requires = ["tensorflow"]}
+
 
 [dev-packages]
 "flake8" = "*"
