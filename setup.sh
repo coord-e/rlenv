@@ -34,6 +34,13 @@ make -j"$(nproc)"
 make install
 popd
 
+if type "nvidia-smi" > /dev/null 2>&1
+then
+  sed -i 's/tensorflow = "\*"/tensorflow-gpu = "*"/' Pipfile
+else
+  echo "Using tensorflow without GPU support"
+fi
+
 # Roboschool installation needs to be done in virtualenv
 pipenv run pipenv install
 
