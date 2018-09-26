@@ -5,6 +5,7 @@ Scaffold reinforcement learning experiment environment
 ## Setup
 
 ```bash
+mkdir your_new_workspace && cd $_
 curl -fsSL https://github.com/coord-e/rlenv/blob/develop/setup.sh | bash
 ```
 
