@@ -1,0 +1,6 @@
+[submodule "baselines"]
+	path = baselines
+	url = https://github.com/openai/baselines
+[submodule "roboschool"]
+	path = roboschool
+	url = https://github.com/openai/roboschool
