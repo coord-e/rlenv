@@ -22,7 +22,9 @@ ax = fig.add_subplot(111)
 ax.set_xlabel("Number of Timesteps")
 ax.set_ylabel("Episodic Reward")
 
-ax.plot(timesteps, smooth(100, data[0]))
+for i in [0, 2]:
+    rewards = smooth(10**i, data[0])
+    ax.plot(timesteps, rewards, color='blue', alpha=(i+1)/3)
 
 plt.legend()
 
