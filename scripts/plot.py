@@ -11,8 +11,9 @@ def smooth(n, ary):
 
 name = sys.argv[1]
 
-csvs = natsorted(glob('results/{}/logs/*.monitor.csv'.format(name)))
-data = np.concatenate([np.loadtxt(f, skiprows=2, delimiter=',', usecols=(0,1)) for f in csvs]).T
+csvs = glob('results/{}/logs/*.monitor.csv'.format(name))
+assert len(csvs) == 1
+data = np.loadtxt(csvs[0], skiprows=2, delimiter=',', usecols=(0,1)).T
 timesteps = data[1].cumsum()
 
 fig = plt.figure(figsize=(12, 8))
