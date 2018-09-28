@@ -1,5 +1,7 @@
 from glob import glob
+from pathlib import Path
 import sys
+import os
 
 import numpy as np
 from natsort import natsorted
@@ -30,4 +32,9 @@ plt.legend()
 
 # plt.show()
 plt.tight_layout()
-plt.savefig("foo.png")
+
+outdir = Path("results/") / name / "plot"
+if not outdir.is_dir():
+    outdir.mkdir()
+
+plt.savefig(str(outdir / "plot.png"))
