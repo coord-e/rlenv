@@ -16,13 +16,15 @@ name = sys.argv[1]
 csvs = glob('results/{}/logs/*.monitor.csv'.format(name))
 assert len(csvs) == 1
 data = np.loadtxt(csvs[0], skiprows=2, delimiter=',', usecols=(0,1)).T
-timesteps = data[1].cumsum()
+timesteps = [t / 1e6 for t in data[1].cumsum()] # Show in (M)
 
 fig = plt.figure(figsize=(12, 8))
 ax = fig.add_subplot(111)
 
-ax.set_xlabel("Number of Timesteps")
+ax.set_xlabel("Number of Timesteps (M)")
 ax.set_ylabel("Episodic Reward")
+
+ax.xaxis.set_major_formatter(plt.FormatStrFormatter('%.1f'))
 
 for i in [0, 2]:
     rewards = smooth(10**i, data[0])
