@@ -4,7 +4,6 @@ import sys
 import os
 
 import numpy as np
-from natsort import natsorted
 import matplotlib.pyplot as plt
 
 

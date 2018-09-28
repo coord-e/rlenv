@@ -12,7 +12,6 @@ opencv-python = "*"
 joblib = "*"
 "mpi4py" = "*"
 matplotlib = "*"
-natsort = "*"
 
 [dev-packages]
 "flake8" = "*"
