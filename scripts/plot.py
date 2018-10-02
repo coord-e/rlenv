@@ -59,7 +59,6 @@ for name in args.name:
 
 plt.legend()
 
-# plt.show()
 plt.tight_layout()
 
 outdir = Path("results/") / "plot"
@@ -67,3 +66,5 @@ if not outdir.is_dir():
     outdir.mkdir()
 
 plt.savefig(str(outdir / ("_".join(args.name)+".png")))
+
+plt.show()
