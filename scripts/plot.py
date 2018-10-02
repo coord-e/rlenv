@@ -40,7 +40,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--detailed", action="store_true",
                             help="Use 0.0.monitor.csv")
 
-parser.add_argument("name", nargs='+', help="result id", action="append")
+parser.add_argument("name", nargs='+', help="result id")
 args = parser.parse_args()
 
 fig = plt.figure(figsize=(12, 8))
@@ -51,7 +51,7 @@ ax.set_ylabel("Episodic Reward")
 
 ax.xaxis.set_major_formatter(plt.FormatStrFormatter('%.1f'))
 
-for name in args.name[0]:
+for name in args.name:
     plot(ax, name, args.detailed)
 
 plt.legend()
@@ -63,4 +63,4 @@ outdir = Path("results/") / "plot"
 if not outdir.is_dir():
     outdir.mkdir()
 
-plt.savefig(str(outdir / ("_".join(args.name[0])+".png")))
+plt.savefig(str(outdir / ("_".join(args.name)+".png")))
