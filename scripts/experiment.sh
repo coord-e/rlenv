@@ -17,3 +17,5 @@ for i in $(seq 5); do
   echo "train seed=$i"
   time python ../run.py --seed $i --save_path "${model_path}_$i" --num_timesteps 2e6 $@
 done
+
+trap 'pkill tensorboard' EXIT
