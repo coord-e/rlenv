@@ -14,3 +14,5 @@ export OPENAI_LOGDIR="$log_dir"
 
 tensorboard --logdir "$log_dir" &
 python ../run.py --save_path "$model_path" $@
+
+trap 'pkill tensorboard' EXIT
