@@ -15,5 +15,5 @@ tensorboard --logdir "$log_dir" &
 for i in $(seq 5); do
   export OPENAI_LOGDIR="$log_dir.$i"
   echo "train seed=$i"
-  time python -m baselines.run --seed $i --save_path "${model_path}_$i" --num_timesteps 2e6 $@
+  time python ../run.py --seed $i --save_path "${model_path}_$i" --num_timesteps 2e6 $@
 done
