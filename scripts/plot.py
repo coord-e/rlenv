@@ -32,8 +32,8 @@ def plot(ax, name, is_detailed):
     rewards_mean = np.mean(rewards, axis=1)
     rewards_std = np.std(rewards, axis=1)
 
-    ax.plot(timesteps, rewards_mean, color='blue', alpha=1)
-    ax.fill_between(timesteps, rewards_mean - rewards_std, rewards_mean + rewards_std, color="blue", alpha=1/3)
+    ax.plot(timesteps, rewards_mean, alpha=1, label=name)
+    ax.fill_between(timesteps, rewards_mean - rewards_std, rewards_mean + rewards_std, alpha=1/3)
 
 
 parser = argparse.ArgumentParser()
