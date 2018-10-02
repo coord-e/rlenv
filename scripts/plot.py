@@ -2,6 +2,7 @@ from glob import glob
 from pathlib import Path
 import sys
 import os
+import argparse
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -34,8 +35,13 @@ def plot(ax, name, is_detailed):
     ax.plot(timesteps, rewards_mean, color='blue', alpha=1)
     ax.fill_between(timesteps, rewards_mean - rewards_std, rewards_mean + rewards_std, color="blue", alpha=1/3)
 
-name = sys.argv[1]
-is_detailed = sys.argv[2] == 'detailed' if len(sys.argv) > 2 else False
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-d", "--detailed", action="store_true",
+                            help="Use 0.0.monitor.csv")
+
+parser.add_argument("name", nargs='+', help="result id", action="append")
+args = parser.parse_args()
 
 fig = plt.figure(figsize=(12, 8))
 ax = fig.add_subplot(111)
@@ -45,15 +51,16 @@ ax.set_ylabel("Episodic Reward")
 
 ax.xaxis.set_major_formatter(plt.FormatStrFormatter('%.1f'))
 
-plot(ax, name, is_detailed)
+for name in args.name[0]:
+    plot(ax, name, args.detailed)
 
 plt.legend()
 
 # plt.show()
 plt.tight_layout()
 
-outdir = Path("results/") / name / "plot"
+outdir = Path("results/") / "plot"
 if not outdir.is_dir():
     outdir.mkdir()
 
-plt.savefig(str(outdir / "plot.png"))
+plt.savefig(str(outdir / ("_".join(args.name[0])+".png")))
