@@ -37,13 +37,16 @@ def plot(ax, name, is_detailed):
 
 
 parser = argparse.ArgumentParser()
+
+parser.add_argument("-w", "--width", type=int, default=6, help="The width of figure")
+parser.add_argument("-H", "--height", type=int, default=4, help="The height of figure")
 parser.add_argument("-d", "--detailed", action="store_true",
                             help="Use 0.0.monitor.csv")
 
 parser.add_argument("name", nargs='+', help="result id")
 args = parser.parse_args()
 
-fig = plt.figure(figsize=(12, 8))
+fig = plt.figure(figsize=(args.width, args.height))
 ax = fig.add_subplot(111)
 
 ax.set_xlabel("Number of Timesteps (M)")
