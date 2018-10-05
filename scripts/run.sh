@@ -22,7 +22,7 @@ echo "pipenv run train $name $@" > $output_dir/cmdline.txt
 export OPENAI_LOG_FORMAT='stdout,log,csv,tensorboard'
 export OPENAI_LOGDIR="$log_dir"
 
-tensorboard --logdir "$log_dir" &
+tensorboard --logdir "$log_dir" --port 0 &
 python ../run.py --seed 1 --save_path "$model_path" $@
 
 trap 'pkill tensorboard' EXIT
