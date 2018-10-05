@@ -12,6 +12,7 @@ opencv-python = "*"
 joblib = "*"
 "mpi4py" = "*"
 matplotlib = "*"
+pick = "*"
 
 [dev-packages]
 "flake8" = "*"

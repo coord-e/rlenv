@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 import os
 import argparse
+from pick import pick
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,8 +13,11 @@ def plot(ax, name, is_detailed):
         data = np.genfromtxt(path, dtype=float, delimiter=',', names=True)
         return np.array([data['total_timesteps'], data['eprewmean']]).T
 
+    basedirs = glob('results/{}*'.format(name))
+    basedir, _ = pick(basedirs, 'choose the result directory to use')
+
     if is_detailed:
-        csvs = glob('results/{}/logs*/*.monitor.csv'.format(name))
+        csvs = glob('{}/logs*/*.monitor.csv'.format(basedir))
         data = [np.loadtxt(csv, skiprows=2, delimiter=',', usecols=(0,1)) for csv in csvs]
         uselen = min(d.shape[0] for d in data)
         data_shaped = np.array([d[:uselen] for d in data]).T
@@ -21,7 +25,7 @@ def plot(ax, name, is_detailed):
         rewards = data_shaped[0]
         timesteps = [t / 1e6 for t in np.mean(data_shaped[1], axis=1).cumsum()] # Show in (M)
     else:
-        csvs = glob('results/{}/logs*/progress.csv'.format(name))
+        csvs = glob('{}/logs*/progress.csv'.format(basedir))
         data = [load(csv) for csv in csvs]
         uselen = min(d.shape[0] for d in data)
         data_shaped = np.array([d[:uselen] for d in data]).T
