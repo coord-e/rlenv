@@ -14,7 +14,7 @@ head=$(git rev-parse HEAD)
 patch_hash=$(sha1sum $tmp_diff | awk '{print $1}')
 cd rlenv
 
-set_paths $name-$head-$patch_hash
+set_paths $name-${head:0:6}-${patch_hash:0:6}
 cp $tmp_diff $output_dir/changes.diff
 
 echo "pipenv run train $name $@" > $output_dir/cmdline.txt
