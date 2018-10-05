@@ -8,14 +8,27 @@ name=$1
 shift
 
 cd ..
-tmp_diff=$(mktemp)
-git diff > $tmp_diff
 head=$(git rev-parse HEAD)
-patch_hash=$(sha1sum $tmp_diff | awk '{print $1}')
+patch_hash=$(sha1sum <<< $(git diff) | awk '{print $1}')
 cd rlenv
 
 set_paths $name-${head:0:6}-${patch_hash:0:6}
-cp $tmp_diff $output_dir/changes.diff
+
+cd ..
+function save_changes() {
+  name=$1
+  path=$2
+  pushd $path > /dev/null
+  git diff > $output_dir/$name.diff
+  popd > /dev/null
+}
+
+save_changes changes .
+
+for submodule in $(git config --file .gitmodules --get-regexp path | awk '{ print $2 }'); do
+  save_changes ./$submodule $submodule
+done
+cd rlenv
 
 echo "pipenv run train $name $@" > $output_dir/cmdline.txt
 
