@@ -158,10 +158,9 @@ function popd () {
 
 info "rlenv bootstrapping script"
 
-progress "Initialize git and git-flow repository"
+progress "Initialize git repository"
 
 git init
-git flow init
 
 progress "Clone rlenv as a submodule"
 
