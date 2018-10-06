@@ -1,0 +1,54 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: bash:4
+    environment:
+      - SOURCE_BRANCH: develop
+      - TARGET_BRANCH: gh-pages
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: apk add git openssh
+      - run:
+          name: Add github to known hosts
+          command: |
+            mkdir -p ~/.ssh
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Add bd
+          command: git clone https://github.com/coord-e/bd.git
+      - run:
+          name: Eject the script
+          command: |
+            bd/bin/bd eject bootstrap.bd bootstrap.sh
+      - deploy:
+          name: Deploy
+          command: |
+            if [ "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
+              exit 0
+            fi
+
+            git config --global user.email $GIT_EMAIL
+            git config --global user.name $GIT_NAME
+
+            git clone $CIRCLE_REPOSITORY_URL out
+
+            cd out
+            git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+            git rm -rf .
+            cd ..
+
+            cp bootstrap.sh out/
+
+            mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
+            cd out
+
+            git add -A
+            git commit -m "Eject bootstrap script at ${CIRCLE_SHA1}" --allow-empty
+
+            git push origin $TARGET_BRANCH
+branches:
+  ignore:
+    - gh-pages
