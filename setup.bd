@@ -65,4 +65,9 @@ progress "Install dependencies"
 
 ./setup.sh
 
+progress "Commit changes"
+
+git add .
+git commit -m "Bootstrap with rlenv"
+
 info "Done!"
