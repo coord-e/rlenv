@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: bash:4
+    steps:
+      - checkout
+      - run:
+          name: Add bd
+          command: |
+            git clone https://github.com/coord-e/bd.git
+      - run:
+          name: Eject the script
+          command: |
+            bd/bin/bd eject setup.bd > setup.sh
