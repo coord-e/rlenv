@@ -42,6 +42,7 @@ jobs:
 
             cp bootstrap.sh out/
 
+            mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
             cd out
 
             git add -A
