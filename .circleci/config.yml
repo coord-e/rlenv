@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    branches:
+      ignore:
+        - gh-pages
     docker:
       - image: bash:4
     environment:
@@ -49,6 +52,3 @@ jobs:
             git commit -m "Eject bootstrap script at ${CIRCLE_SHA1}" --allow-empty
 
             git push origin $TARGET_BRANCH
-branches:
-  ignore:
-    - gh-pages
