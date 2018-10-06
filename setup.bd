@@ -1,6 +1,4 @@
-#!/usr/bin/env bash
-
-set -eu
+#!/usr/bin/env bd
 
 function pushd () {
   command pushd "$@" > /dev/null
