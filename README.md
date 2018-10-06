@@ -13,13 +13,13 @@ curl -fsSL https://coord-e.github.io/rlenv/bootstrap.sh | bash
 
 ```bash
 # To train the model:
-pipenv run train --name humanoid --env RoboschoolHumanoid-v1 --timesteps 1e4
+pipenv run train humanoid --env RoboschoolHumanoid-v1 --timesteps 1e4
 
 # To plot the result:
 pipenv run plot
 
 # To play with trained model:
-pipenv run play --name humanoid
+pipenv run play humanoid
 ```
 
 ## Structure
@@ -28,11 +28,11 @@ pipenv run play --name humanoid
 rlenv/ (submodule)
 baselines/ (submodule)
 roboschool/ (submodule)
+bullet3/ (submodule)
+results/
+setup.sh
 Pipfile
 Pipfile.lock
-.rlenv.toml
-.gitignore
-.gitmodules
 ```
 
 
