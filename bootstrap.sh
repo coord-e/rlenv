@@ -140,6 +140,10 @@ bd::store::save ()
 bd::store::save bd_total_progress bd_current_progress
 #!/usr/bin/env bd
 
+readonly BASELINES_REF=HEAD
+readonly ROBOSCHOOL_REF=HEAD
+readonly BULLET3_REF=roboschool_self_collision
+
 
 name "rlenv bootstrapping script"
 description << EOF
@@ -169,13 +173,6 @@ pushd rlenv
 git submodule update --init --recursive
 popd
 
-# Obtain the hash of baselines/roboschool in rlenv, and add them as a submodule
-function get_hash() {
-  pushd rlenv/$1
-  git rev-parse HEAD
-  popd
-}
-
 function add_and_checkout() {
   git submodule add https://github.com/$1
   pushd $(basename $1)
@@ -183,18 +180,11 @@ function add_and_checkout() {
   popd
 }
 
-function reclone_submodule() {
-  repo=$1
-  dir=$(basename $repo)
-  hash_rlenv=$(get_hash $dir)
-  add_and_checkout $repo $hash_rlenv
-}
-
 progress "Fetch submodules"
 
-reclone_submodule openai/baselines
-reclone_submodule openai/roboschool
-reclone_submodule olegklimov/bullet3
+add_and_checkout openai/baselines $BASELINES_REF
+add_and_checkout openai/roboschool $ROBOSCHOOL_REF
+add_and_checkout olegklimov/bullet3 $BULLET3_REF
 
 progress "Copy template files"
 
