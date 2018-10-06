@@ -16,8 +16,14 @@ function popd () {
   command popd "$@" > /dev/null
 }
 
+info "rlenv bootstrapping script"
+
+progress "Initialize git and git-flow repository"
+
 git init
 git flow init
+
+progress "Clone rlenv as a submodule"
 
 git submodule add https://github.com/coord-e/rlenv
 pushd rlenv
@@ -45,10 +51,18 @@ function reclone_submodule() {
   add_and_checkout $repo $hash_rlenv
 }
 
+progress "Fetch submodules"
+
 reclone_submodule openai/baselines
 reclone_submodule openai/roboschool
 reclone_submodule olegklimov/bullet3
 
+progress "Copy template files"
+
 cp rlenv/template/* .
 
+progress "Install dependencies"
+
 ./setup.sh
+
+info "Done!"
