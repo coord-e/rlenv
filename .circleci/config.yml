@@ -13,4 +13,4 @@ jobs:
       - run:
           name: Eject the script
           command: |
-            bd/bin/bd eject setup.bd > setup.sh
+            bd/bin/bd eject setup.bd setup.sh
