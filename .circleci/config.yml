@@ -8,6 +8,7 @@ jobs:
       - run:
           name: Add bd
           command: |
+            apk add git
             git clone https://github.com/coord-e/bd.git
       - run:
           name: Eject the script
