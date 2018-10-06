@@ -12,6 +12,11 @@ jobs:
           name: Install dependencies
           command: apk add git openssh
       - run:
+          name: Add github to known hosts
+          command: |
+            mkdir -p ~/.ssh
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
           name: Add bd
           command: git clone https://github.com/coord-e/bd.git
       - run:
