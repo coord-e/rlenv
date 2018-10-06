@@ -8,7 +8,7 @@ To start training:
 
 ```bash
 # pipenv run train <experiment name> --env <gym environment> --alg <algorithm> --network <network>
-pipenv run train humanoid --env RoboschoolHumanoid-v1 --alg ppo2 --network mlp2
+pipenv run train humanoid --env RoboschoolHumanoid-v1 --alg ppo2 --network mlp
 ```
 
 Then, you can plot the result with `pipenv run plot`
