@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Eject the script
           command: |
-            bd/bin/bd eject setup.bd setup.sh
+            bd/bin/bd eject bootstrap.bd bootstrap.sh
       - deploy:
           name: Deploy
           command: |
@@ -40,7 +40,7 @@ jobs:
             git rm -rf .
             cd ..
 
-            cp setup.sh out/
+            cp bootstrap.sh out/
 
             cd out
 
