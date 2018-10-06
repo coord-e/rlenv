@@ -9,10 +9,11 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install dependencies
+          command: apk add git openssh
+      - run:
           name: Add bd
-          command: |
-            apk add git
-            git clone https://github.com/coord-e/bd.git
+          command: git clone https://github.com/coord-e/bd.git
       - run:
           name: Eject the script
           command: |
