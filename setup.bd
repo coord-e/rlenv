@@ -4,7 +4,7 @@
 name "rlenv bootstrapping script"
 description << EOF
 Bootstrap the reinforcement learning project with rlenv.
-Usually, this script is executed directly from `curl`/`wget`.
+Usually, this script is executed directly from curl/wget.
 EOF
 
 
