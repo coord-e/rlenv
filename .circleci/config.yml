@@ -45,7 +45,7 @@ jobs:
             cd out
 
             git add -A
-            git commit -m "Eject bootstrap script at ${CIRCLE_SHA1}"
+            git commit -m "Eject bootstrap script at ${CIRCLE_SHA1}" --allow-empty
 
             git push origin $TARGET_BRANCH
 branches:
