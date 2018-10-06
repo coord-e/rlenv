@@ -164,3 +164,6 @@ tags
 
 
 # End of https://www.gitignore.io/api/python,vim,linux
+
+# rlenv
+results/

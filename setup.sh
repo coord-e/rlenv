@@ -46,5 +46,3 @@ reclone_submodule olegklimov/bullet3
 cp rlenv/template/* .
 
 ./setup.sh
-
-echo results/ >> .gitignore
