@@ -9,39 +9,39 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Add bd
-        command: |
-          apk add git
-          git clone https://github.com/coord-e/bd.git
+          name: Add bd
+          command: |
+            apk add git
+            git clone https://github.com/coord-e/bd.git
       - run:
-        name: Eject the script
-        command: |
-          bd/bin/bd eject setup.bd setup.sh
+          name: Eject the script
+          command: |
+            bd/bin/bd eject setup.bd setup.sh
       - deploy:
-        name: Deploy
-        command: |
-          if [ "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
-            exit 0
-          fi
+          name: Deploy
+          command: |
+            if [ "$CIRCLE_BRANCH" != "$SOURCE_BRANCH" ]; then
+              exit 0
+            fi
 
-          git config --global user.email $GIT_EMAIL
-          git config --global user.name $GIT_NAME
+            git config --global user.email $GIT_EMAIL
+            git config --global user.name $GIT_NAME
 
-          git clone $CIRCLE_REPOSITORY_URL out
+            git clone $CIRCLE_REPOSITORY_URL out
 
-          cd out
-          git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-          git rm -rf .
-          cd ..
+            cd out
+            git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+            git rm -rf .
+            cd ..
 
-          cp setup.sh out/
+            cp setup.sh out/
 
-          cd out
+            cd out
 
-          git add -A
-          git commit -m "Eject bootstrap script at ${CIRCLE_SHA1}"
+            git add -A
+            git commit -m "Eject bootstrap script at ${CIRCLE_SHA1}"
 
-          git push origin $TARGET_BRANCH
+            git push origin $TARGET_BRANCH
 branches:
   ignore:
     - gh-pages
