@@ -19,6 +19,10 @@ else
 fi
 
 # Roboschool installation needs to be done in virtualenv
-pipenv install
-pipenv install -e ./baselines
-pipenv run pipenv install -e ./roboschool
+if [ -f Pipfile.lock ]; then
+  pipenv run pipenv install
+else
+  pipenv install
+  pipenv install -e ./baselines
+  pipenv run pipenv install -e ./roboschool
+fi
