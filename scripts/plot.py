@@ -8,10 +8,10 @@ from pick import pick
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot(ax, name, is_detailed):
+def plot(ax, name, is_detailed, ykey):
     def load(path):
         data = np.genfromtxt(path, dtype=float, delimiter=',', names=True)
-        return np.array([data['total_timesteps'], data['eprewmean']]).T
+        return np.array([data['total_timesteps'], data[ykey]]).T
 
     basedirs = glob('results/{}*'.format(name))
     basedir, _ = pick(basedirs, 'choose the result directory to use')
@@ -44,6 +44,7 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("-w", "--width", type=int, default=6, help="The width of figure")
 parser.add_argument("-H", "--height", type=int, default=4, help="The height of figure")
+parser.add_argument("-y", "--y-key", type=str, default="eprewmean", help="Specify the key to use as y-axis, works only in non-detailed mode")
 parser.add_argument("-d", "--detailed", action="store_true",
                             help="Use 0.0.monitor.csv")
 
@@ -54,12 +55,12 @@ fig = plt.figure(figsize=(args.width, args.height))
 ax = fig.add_subplot(111)
 
 ax.set_xlabel("Number of Timesteps (M)")
-ax.set_ylabel("Episodic Reward")
+ax.set_ylabel(args.y_key if not args.detailed else "Episodic Reward")
 
 ax.xaxis.set_major_formatter(plt.FormatStrFormatter('%.1f'))
 
 for name in args.name:
-    plot(ax, name, args.detailed)
+    plot(ax, name, args.detailed, args.y_key)
 
 plt.legend()
 
@@ -69,6 +70,6 @@ outdir = Path("results/") / "plot"
 if not outdir.is_dir():
     outdir.mkdir()
 
-plt.savefig(str(outdir / ("_".join(args.name)+".png")))
+plt.savefig(str(outdir / ("_".join(args.name)+"_{}.png".format(args.y_key))))
 
 plt.show()
