@@ -37,6 +37,6 @@ export OPENAI_LOGDIR="$log_dir"
 
 tensorboard --logdir "$log_dir" --port 0 &
 tb_pid=$!
-python ../run.py --seed 1 --save_path "$model_path" $@
+python ../run.py --seed 1 --save_path "$model_path" --save_interval 5 $@
 
 trap "kill $tb_pid" EXIT
