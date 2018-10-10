@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
+set -ue -o pipefail
 readonly BD_EJECTED=true
 readonly BD_CACHE="$HOME/.cache/bd"
-
-if [ ! -d "$BD_CACHE" ]; then
-  mkdir -p $BD_CACHE
-fi
 
 if [ -v BD_EJECTED ]; then
   BD_SCRIPT=$0
@@ -19,10 +16,15 @@ BD_SCRIPT_NAME=$BD_SCRIPT
 bd_total_progress=0
 bd_current_progress=0
 
-BD_DEFAULT_EJECTED_FUNCTIONS=()
-BD_STARTUP_CODE=()
+# BD_P_ variables are set before startup, and they're immutable after setup
+BD_P_DEFAULT_EJECTED_FUNCTIONS=()
+
+# Startup code always have to return 0
+BD_P_STARTUP_CODE=("[ ! -d \$BD_CACHE ] && mkdir -p \$BD_CACHE || :")
 
 BD_LOG_LEVEL=${BD_LOG_LEVEL:-info}
+declare -a BD_P_DEFAULT_EJECTED_FUNCTIONS=([0]="bd::store::save" [1]="bd::store::load")
+declare -a BD_P_STARTUP_CODE=([0]="[ ! -d \$BD_CACHE ] && mkdir -p \$BD_CACHE || :" [1]="bd::store::save bd_total_progress bd_current_progress")
 name () 
 { 
     BD_SCRIPT_NAME=$1
@@ -137,6 +139,7 @@ bd::store::save ()
         echo "$value" > $path;
     done
 }
+[ ! -d $BD_CACHE ] && mkdir -p $BD_CACHE || :
 bd::store::save bd_total_progress bd_current_progress
 #!/usr/bin/env bd
 
